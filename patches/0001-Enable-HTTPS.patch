@@ -1,0 +1,37 @@
+From b48c7a9b332fd44a15593c1e36802d3cc0fbada8 Mon Sep 17 00:00:00 2001
+From: Kai-Chieh Ku <kjackie@gmail.com>
+Date: Wed, 16 Feb 2022 11:02:21 +0900
+Subject: [PATCH] Enable HTTPS
+
+---
+ main/privoxy/APKBUILD | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/main/privoxy/APKBUILD b/main/privoxy/APKBUILD
+index 496f9e90..7419e3b0 100644
+--- a/main/privoxy/APKBUILD
++++ b/main/privoxy/APKBUILD
+@@ -8,7 +8,8 @@ arch="all"
+ license="GPL-2.0-or-later"
+ pkgusers="privoxy"
+ pkggroups="privoxy"
+-makedepends="autoconf automake pcre-dev zlib-dev coreutils"
++makedepends="autoconf automake pcre-dev zlib-dev coreutils openssl-dev"
++depends="openssl"
+ install="privoxy.pre-install"
+ subpackages="$pkgname-doc $pkgname-openrc"
+ source="https://downloads.sourceforge.net/ijbswa/privoxy-$pkgver-stable-src.tar.gz
+@@ -57,8 +58,10 @@ build() {
+ 		--localstatedir=/var/ \
+ 		--enable-zlib \
+ 		--enable-dynamic-pcre \
++		--enable-compression \
+ 		--with-user=privoxy \
+ 		--with-group=privoxy \
++		--with-openssl \
+ 		--sysconfdir=/etc/privoxy \
+ 		--docdir=/usr/share/doc/$pkgname
+ 	make
+-- 
+2.35.1
+
